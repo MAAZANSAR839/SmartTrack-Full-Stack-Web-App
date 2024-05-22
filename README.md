@@ -1,0 +1,1 @@
+This project integrates RFID, GPS, and a web app to enhance university transportation. It offers real-time bus tracking for students and staff, ensuring safety and efficiency. Admins can manage routes, permissions, and monitor bus environments, including accident detection. This fosters a smoother and safer campus travel experience.
