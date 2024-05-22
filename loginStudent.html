@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartBus | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="./plugins/bootstrap/css/bootstrap.min.css">
+  <!-- AdminLTE Theme style -->
+  <link rel="stylesheet" href="./dist/css/adminlte.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: url('bus.jpg');
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-logo a {
+      font-size: 36px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .form-control {
+      border-radius: 25px;
+      border: 2px solid #007bff;
+      background-color: #f9f9f9;
+      color: #555;
+      padding: 12px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #0056b3;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-radius: 25px;
+      border: none;
+      padding: 12px 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+</style>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>Smart</b>Bus</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Username" id="user">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" id="pass">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="button" id="btnSign" class="btn btn-primary btn-block" onclick="getInfo();">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+
+      <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="login.html" class="btn btn-block btn-primary">
+          <i class="fa fa-user"></i> Sign in as Admin
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<script>
+  function getInfo() {
+        var user = $("#user").val();
+        var password = $("#pass").val();
+        var data = { user: user, password: password };
+        let post = JSON.stringify(data);
+        console.log(post);
+        $.ajax({
+          url: "http://localhost:4000/student",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          type: "POST",
+          contentType: "application/json",
+          data: post,
+          success: function (result) {
+            if (result[0] != -100) {
+              sessionStorage.setItem("username", result[3]);
+              sessionStorage.setItem("useremail", result[1]);
+              sessionStorage.setItem("userfee", result[2]);
+              sessionStorage.setItem("userbus", result[0]);
+
+              window.location.href = "inlineStudent.html";
+            } else alert("User Not Found");
+          },
+          error: function () {
+            alert("error");
+          },
+        });
+      }
+</script>
+
+<!-- jQuery -->
+<script src="./plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="./dist/js/adminlte.min.js"></script>
+</body>
+</html>

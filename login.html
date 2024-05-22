@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartBus | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: url('bus.jpg'); /* Replace 'your_image_url_here.jpg' with the URL of your desired background image */
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-logo a {
+      font-size: 36px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .form-control {
+      border-radius: 25px;
+      border: 2px solid #007bff;
+      background-color: #f9f9f9;
+      color: #555;
+      padding: 12px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #0056b3;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-radius: 25px;
+      border: none;
+      padding: 12px 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="#"><b>Smart</b><span style="color: #007bff;">Bus</span></a>
+    </div>
+    <div class="card login-card-body">
+      <form action="#" method="post">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Username" id="user">
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" placeholder="Password" id="pass">
+        </div>
+        <div class="row mb-3">
+          <div class="col-8">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember">
+              <label class="form-check-label" for="remember">Remember Me</label>
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="button" id="btnSign" class="btn btn-primary btn-block" onclick="getInfo();">Sign In</button>
+          </div>
+        </div>
+      </form>
+      <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="loginStudent.html" class="btn btn-block btn-primary">
+          <i class="fa fa-user"></i> Sign in as Student
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom Script -->
+  <script>
+    function getInfo() {
+      var user = $("#user").val();
+      var password = $("#pass").val();
+      var data = { user: user, password: password };
+      let post = JSON.stringify(data);
+      console.log(post);
+      $.ajax({
+        url: "http://localhost:4000/admin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        type: "POST",
+        contentType: "application/json",
+        data: post,
+        success: function (result) {
+          if (result[0] != -100) {
+            sessionStorage.setItem("username", result[0]);
+            window.location.href = "inline.html";
+          } else alert("User Not Found");
+        },
+        error: function () {
+          alert("error");
+        },
+      });
+    }
+  </script>
+</body>
+</html>
